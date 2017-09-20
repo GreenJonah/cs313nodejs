@@ -1,0 +1,12 @@
+/*home.css*/
+.title {
+  color: white;
+  font-family: Helvetica;
+  font-weight: bold;
+  background-color: darkblue;
+  margin-top: 0px;
+  padding: 20px 100% 10px 20px;
+  position: fixed;
+  text-align: center;
+  border: 3px solid black; 
+}
