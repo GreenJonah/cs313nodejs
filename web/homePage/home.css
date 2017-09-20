@@ -5,6 +5,7 @@
   font-weight: bold;
   background-color: darkblue;
   margin-top: 0px;
+  margin-bottom: 30px;
   padding: 20px 50% 10px 20px;
   position: fixed;
   text-align: center;
@@ -12,11 +13,10 @@
 }
 
 .heading {
-  color: white;
+  color: black;
   font-family: Helvetica;
   font-weight: bold;
   background-color: Bisque;
-  margin-top: 30px;
   margin-left: 50px;
   padding: 20px 30% 10px 20px;
   position: fixed;
@@ -30,7 +30,7 @@ a {
 }
 
 body {
-  background: url("bikebackground.jpg");
-  background-size:100%;
+ /* background: url("bikebackground.jpg");
+  background-size:100%;*/
 }
 
