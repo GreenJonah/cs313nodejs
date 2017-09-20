@@ -17,6 +17,7 @@
   font-family: Helvetica;
   font-weight: bold;
   background-color: Bisque;
+  margin-top: 60px;
   margin-left: 50px;
   padding: 20px 30% 10px 20px;
   position: fixed;
@@ -25,6 +26,7 @@
 }
 
 a {
+	margin-top: 150px;
 	text-decoration-color: black;
     background-color: Bisque;
 }
