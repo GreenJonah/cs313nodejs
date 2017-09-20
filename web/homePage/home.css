@@ -1,6 +1,5 @@
 /*home.css*/
 .title {
-	/*
   color: white;
   font-family: Helvetica;
   font-weight: bold;
@@ -10,11 +9,9 @@
   position: fixed;
   text-align: center;
   border: 3px solid black;
-  */ 
 }
 
 .heading {
-	/*
   color: black;
   font-family: Helvetica;
   font-weight: bold;
@@ -25,17 +22,16 @@
   position: fixed;
   text-align: center;
   border: 3px solid black;
-  */ 
 }
 
 a {
-	margin-top: 150px;
-	text-decoration-color: black;
-    background-color: Bisque;
+  margin-top: 150px;
+  text-decoration-color: black;
+  background-color: Bisque;
 }
 
 body {
- /* background: url("bikebackground.jpg");
-  background-size:100%;*/
+  background: url("bikebackground.jpg");
+  background-size:100%;
 }
 
