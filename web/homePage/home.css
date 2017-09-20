@@ -11,7 +11,12 @@
   border: 3px solid black; 
 }
 
-  body {
-    background: url("bikebackground.jpg");
-    background-size:100%;
-  }
+body {
+  background: url("bikebackground.jpg");
+  background-size:100%;
+}
+
+a {
+	text-decoration-color: black;
+    background-color: Bisque;
+}
