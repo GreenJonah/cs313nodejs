@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<link rel="stylesheet" type="text/css" href="Team01.css">
-	<script type="text/javascript" src="Team01.js"></script>
+	<script src="Team01.js"></script>
 	<title>Team01 Activity</title>
 </head>
 <body>
@@ -10,5 +10,9 @@
 	<div id="one">One</div>
 	<div id="two">Two</div>
 	<div id="three">Three</div><br/>
-	<input type="button" onclick="click()">Click Me</input>
+	<button onclick="click();">Click Me!</button>
+
+	<label for="txtColor">Color:</label>
+	<input type="text" id="newColor" placeholder="#cccccc"><br/>
+	<button onclick="changeColor();">Change Color</button>
 </body>
