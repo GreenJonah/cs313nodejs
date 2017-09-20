@@ -11,12 +11,26 @@
   border: 3px solid black; 
 }
 
-body {
-  background: url("bikebackground.jpg");
-  background-size:100%;
+.heading {
+  color: white;
+  font-family: Helvetica;
+  font-weight: bold;
+  background-color: Bisque;
+  margin-top: 30px;
+  margin-left: 50px;
+  padding: 20px 30% 10px 20px;
+  position: fixed;
+  text-align: center;
+  border: 3px solid black; 
 }
 
 a {
 	text-decoration-color: black;
     background-color: Bisque;
 }
+
+body {
+  background: url("bikebackground.jpg");
+  background-size:100%;
+}
+
