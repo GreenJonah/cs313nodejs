@@ -14,14 +14,14 @@
   font-family: Helvetica;
   font-weight: bold;
   background-color: Bisque;
-  margin-top: 120px;
+  margin-top: 40px;
   margin-left: 50px;
   padding: 20px 30% 10px 20px;
   border: 3px solid black;
 }
 
 a {
-  margin-top: 160px;
+  margin-right: 30px;
   text-decoration-color: black;
   background-color: Bisque;
 }
