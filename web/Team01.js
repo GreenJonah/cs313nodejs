@@ -1,5 +1,6 @@
 /* Team 01 js file */
-function click() {
+
+function clicked() {
 	alert("Clicked!");
 }
 
