@@ -7,5 +7,5 @@ function changeColor() {
 	var newColor = document.getElementById("newColor");
 	var div1     = document.getElementById("one");
    
-    div1.style.backgroundColor = newColor;
+    div1.style.backgroundColor = newColor.value;
 }
