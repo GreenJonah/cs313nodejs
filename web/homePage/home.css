@@ -5,7 +5,6 @@
   font-weight: bold;
   background-color: darkblue;
   margin-top: 0px;
-  margin-bottom: 30px;
   padding: 20px 50% 10px 20px;
   position: fixed;
   text-align: center;
@@ -17,7 +16,7 @@
   font-family: Helvetica;
   font-weight: bold;
   background-color: Bisque;
-  margin-top: 60px;
+  margin-top: 120px;
   margin-left: 50px;
   padding: 20px 30% 10px 20px;
   position: fixed;
@@ -27,8 +26,10 @@
 
 a {
 	margin-top: 150px;
+	/*
 	text-decoration-color: black;
     background-color: Bisque;
+    */
 }
 
 body {
