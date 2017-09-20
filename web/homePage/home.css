@@ -1,5 +1,6 @@
 /*home.css*/
 .title {
+	/*
   color: white;
   font-family: Helvetica;
   font-weight: bold;
@@ -8,10 +9,12 @@
   padding: 20px 50% 10px 20px;
   position: fixed;
   text-align: center;
-  border: 3px solid black; 
+  border: 3px solid black;
+  */ 
 }
 
 .heading {
+	/*
   color: black;
   font-family: Helvetica;
   font-weight: bold;
@@ -21,7 +24,8 @@
   padding: 20px 30% 10px 20px;
   position: fixed;
   text-align: center;
-  border: 3px solid black; 
+  border: 3px solid black;
+  */ 
 }
 
 a {
