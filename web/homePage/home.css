@@ -11,7 +11,7 @@
 
 .heading {
   color: black;
-  font-family: Helvetica;
+  font-family: Garamond;
   font-weight: bold;
   background-color: Bisque;
   margin-top: 40px;
@@ -21,16 +21,12 @@
 }
 
 .link {
-	/*
-  margin-right: 30px;
-  text-decoration-color: black;
-  background-color: Bisque;
-  */
-  font: bold 11px Arial;
+  margin-right: 10px;
+  font: bold 14px Garamond;
   text-decoration: none;
   background-color: #EEEEEE;
   color: #333333;
-  padding: 2px 6px 2px 6px;
+  padding: 4px 12px 4px 12px;
   border-top: 1px solid #CCCCCC;
   border-right: 1px solid #333333;
   border-bottom: 1px solid #333333;
