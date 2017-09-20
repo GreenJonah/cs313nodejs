@@ -10,3 +10,8 @@
   text-align: center;
   border: 3px solid black; 
 }
+
+  body {
+    background: url("bikebackground.jpg");
+    background-size:100%;
+  }
