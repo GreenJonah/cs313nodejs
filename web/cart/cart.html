@@ -1,5 +1,11 @@
 <?php
 	session_start();
+
+	if (empty($SESSION['cart'])){
+       $_SESSION['cart'] = array()
+    }
+
+    array_push($_SESSION['cart'], $_POST['id'])	
 ?>
 
 <!DOCTYPE html>
