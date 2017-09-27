@@ -1,0 +1,66 @@
+/*home.css*/
+.title {
+  color: white;
+  font-family: Helvetica;
+  font-weight: bold;
+  background-color: darkblue;
+  margin-top: 0px;
+  padding: 20px 50% 10px 20px;
+  border: 3px solid black;
+}
+
+.heading {
+  color: black;
+  font-family: Garamond;
+  font-weight: bold;
+  background-color: Bisque;
+  margin-top: 40px;
+  margin-left: 50px;
+  padding: 20px 30% 10px 20px;
+  border: 3px solid black;
+}
+
+.link {
+  font: bold 16px Garamond;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 6px 14px 6px 14px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+  margin-top: 30px;
+  margin-left: 50%;
+}
+
+img {
+  max-width: 40%;
+  max-height: 40%;
+}
+
+#p1 {
+  margin-left: 50px;
+}
+
+#p2 {
+  margin-left: 30px;
+}
+
+#p3 {
+  margin-left: 100px;
+  margin-top: 30px;
+}
+#opacity {
+  opacity:0.7;
+}
+
+#opacity:hover {
+   opacity: 1.0;  
+}
+
+body {
+  background: url("bikebackground.jpg");
+  background-size:100%;
+}
+
