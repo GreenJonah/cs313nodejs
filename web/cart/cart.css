@@ -1,0 +1,62 @@
+/* Cart.css */
+.link {
+  font: bold 24px Garamond;
+  text-decoration: none;
+  background-color: bisque;
+  color: #333333;
+  padding: 12px 28px 12px 28px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 2px solid #333333;
+  border-bottom: 2px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+
+img {
+  max-width: 230px;
+  max-height: 230px;
+  min-width: 230px;
+  min-height: 230px;
+}
+
+header {
+  color: white;
+  font-family: Helvetica;
+  font-weight: bold;
+  background-color: grey;
+  font-size: 25px;
+  margin-top: 3.2%;
+  margin-left: 10px;
+  border-bottom: 3px solid black;
+  border-left:   5px solid black;
+  position: absolute;
+}
+
+.headerImg {
+  padding: 2.5% 50% 2.5% 20px;
+  border: 3px solid black;
+  background: url("junk.jpg");
+}
+
+.add1{
+	margin-left: 70px;
+}
+.add {
+	margin-left: 145px;
+}
+
+h2 {
+  color: white;
+  font-family: Garamond;
+  font-weight: bold;
+  background-color: grey;
+  margin-top: 40px;
+  margin-left: 10px;
+  padding: 20px 30% 10px 20px;
+  border-bottom: 3px solid black;
+  border-left:   5px solid black;
+}
+
+body {
+	background-color: lightgray;
+}
+
