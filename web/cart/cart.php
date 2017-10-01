@@ -9,18 +9,24 @@
 	<link rel="stylesheet" type="text/css" href="cart.css">
 </head>
 <body>
+<p><?php= SESSION["doritos"].ToString?> </p>
 	<?php
-		if ($_POST['item0'] == '1'){
-			echo $_POST['item0'];
-			$_SESSION['doritos'] = "Doritos"; 
-		}
-		if ($_POST['item1'] == '1')
-			$_SESSION['lays'] += "Lays";
-		print_r($_SESSION);
-		//echo  $_POST['Cart'];
+	    echo "<header>JunkFood.com</header><br/>";
+	    echo "<div class=\"headerImg\"></div>";
+	    echo "<h2>Items in cart</h2>";
+		echo $_SESSION['doritos'];
+		echo "<br/>";
+		echo $_SESSION['lays'];
+		echo "<br/>";
+        echo $_SESSION['pizza'];
+        echo "<br/>";
+	    echo $_SESSION['tv'];
+	    echo "<br/>";
+		echo $_SESSION['reeses'];
+		echo "<br/>"; 
+		echo $_SESSION['skittles'];
+		echo "<br/>"; 
 	?>
-	<header>JunkFood.com</header><br/>
-	<div class="headerImg"></div><br/>
-	<a class="link" href="shop.php">Continue Shopping</a>
-	<a class="link" href="checkout.php">Checkout</a>
+	<br/><a class="link" href="shop.php">Continue Shopping</a>
+	<a class="link" href="checkout.php">Proceed To Checkout</a>
 </body>
