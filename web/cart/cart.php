@@ -9,7 +9,6 @@
 	<link rel="stylesheet" type="text/css" href="cart.css">
 </head>
 <body>
-<p><?php= SESSION["doritos"].ToString?> </p>
 	<?php
 	    echo "<header>JunkFood.com</header><br/>";
 	    echo "<div class=\"headerImg\"></div>";
