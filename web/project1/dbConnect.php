@@ -18,7 +18,7 @@ function get_db() {
 		$dbPassword = $dbopts["pass"];
 		$dbName = ltrim($dbopts["path"],'/');
 	
-		$db = new PDO("pgsql:host=$dbHost;dbname=$dbName", $dbUser, $dbPassword);
+		$db = new PDO("pgsql:host=$dbHost;dbport=$bdPort; dbname=$dbName", $dbUser, $dbPassword);
 	
 		$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 	}
