@@ -18,7 +18,7 @@ function get_db() {
 		$dbPassword = $dbopts["pass"];
 		$dbName = ltrim($dbopts["path"],'/');
 
-		print "<p>pgsql:host=$dbHost;port=$dbPort;dbname=$dbName</p>\n\n";
+		print "<p>pgsql:host=$dbHost;port=5432;dbname=$dbName</p>\n\n";
 	
 		$db = new PDO("pgsql:host=$dbHost;port=$bdPort;dbname=$dbName", $dbUser, $dbPassword);
 	
