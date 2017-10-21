@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require "dbConnect.php";
   $db = get_db();
 ?>
@@ -6,14 +7,13 @@
 <head>
   <title>Project1</title>
   <link rel="stylesheet" type="text/css" href="project1.css">
-  <script type="text/javascript" src="project1.js"></script>
 </head>
 <body>
 
 <p id="title">Endurocross 2018 Registration</p>
 
 <form action="insertRacer.php" method="POST">
-  <table id="enter">
+  <table class="enter">
   <tr> 
     <td>
       <label for="firstName">First Name:</label></br>
@@ -80,9 +80,9 @@ try
    FROM racers t1 INNER JOIN terrain t2 ON t1.terrain_id = t2.id
    INNER JOIN bikes t3 ON t1.bikes_id = t3.id ORDER BY t1.rid ASC')as $row)
   {
-    echo '<tr class="easyRead"><td>' . $row['firstname'] . '</td><td>' . $row['lastname'] . 
+    echo '<tr class="easyRead"><form action=\'login.php\' method=\'POST\'><td>' . $row['firstname'] . '</td><td>' . $row['lastname'] . 
          '</td><td>' . $row['terrain_type']. '</td><td>' . $row['bike_type']. 
-         '</td><td><input type=\'button\' onclick=\'profEdit('.$row['rid']. ')\'  id=\'edit' . $row['rid'] . '\' value=\'Edit\'></tr>';            
+         '</td><td><button type=\'submit\' name=\'edit\' value=\'' . $row['rid'] . '\'>Edit</button></form></tr>';            
   }
 }
 catch (PDOExecption $ex)

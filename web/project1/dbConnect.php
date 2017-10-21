@@ -4,7 +4,7 @@ function get_db() {
 	$db = NULL;
 	try { 
 
-		$dbUrl = getenv('DATABASE_URL');
+		$dbUrl = getenv("DATABASE_URL");
 
 		if (!isset($dbUrl) || empty($dbUrl)) {
 			$dbUrl = "postgres://ta_user:ta_pass@localhost:5432/raceform";
@@ -17,8 +17,6 @@ function get_db() {
 		$dbUser = $dbopts["user"];
 		$dbPassword = $dbopts["pass"];
 		$dbName = ltrim($dbopts["path"],'/');
-
-		//print "<p>pgsql:host=$dbHost;port=$dbPort;dbname=$dbName</p>\n\n";
 	
 		$db = new PDO("pgsql:host=$dbHost;port=$dbPort;dbname=$dbName", $dbUser, $dbPassword);
 	
