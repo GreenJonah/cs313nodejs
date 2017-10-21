@@ -7,7 +7,7 @@ function get_db() {
 		$dbUrl = getenv("DATABASE_URL");
 
 		if (!isset($dbUrl) || empty($dbUrl)) {
-			$dbUrl = "postgres://ta_user:ta_pass@localhost:80/raceform";
+			$dbUrl = "postgres://ta_user:ta_pass@localhost:5432/raceform";
 		}
 		
 		$dbopts = parse_url($dbUrl);
