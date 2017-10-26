@@ -21,7 +21,6 @@ td {
   font-size: 30px;
   color: red;
   text-shadow: 0 0 4px black;
-  visibility: hidden;
 }
 
 .show {

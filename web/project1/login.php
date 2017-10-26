@@ -1,36 +1,78 @@
 <?php
 	session_start();
-	require "dbConnect.php";
-  	$db = get_db();
-	$_SESSION['rider'] = $_POST['edit'];	
+	$badLogin = false;
+
+	if (isset($_POST['emailCheck']) && isset($_POST['passwordCheck']))
+	{
+		$email = $_POST['emailCheck'];
+		$password = $_POST['passwordCheck'];
+
+		// Connect to DB
+		require "dbConnect.php";
+	  	$db = get_db();
+
+		$query = 'SELECT id, password FROM racers WHERE email = :email';
+		$statement = $db->prepare($query);
+		$statement->bindValue(':email', $email);
+		$result = $statement->execute();
+		if ($result)
+		{	
+			$row = $statement->fetch();
+			$hashedPasswordFromDB = $row['password'];
+	
+			// Check to see if the hashes match
+			if (password_verify($password, $hashedPasswordFromDB))
+			{	
+				// Password was correct
+				$_SESSION['rider'] = $row['id'];
+				header("Location: edit.php");
+				die(); 
+			}
+			else
+			{
+			
+				$badLogin = true;
+			}
+		}
+		else
+		{
+			$badLogin = true;
+		}
+	}	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>login</title>
 	<link rel="stylesheet" type="text/css" href="project1.css">
-	<script type="text/javascript" src="project1.js"></script>
 </head>
 <body>
 	<p id="title">Please Login</p>
-	<div class='notCorrect' id='notCorrect'>Your info does not match the chosen riders pofile</div><br/>
+	<?php
+  	if ($badLogin)
+  	{
+    	 echo "<p class=\"notCorrect\">Incorrect username or password!</p><br/><br/>\n";
+  	}
+  	?>
+	<form action="login.php" method="POST">
 	<table class="enter">
 		<tr>
 		<td>
-			<label for="firstName">First Name:</label></br>
-      		<input class="input" type="text" id="firstCheck" value=''>	
+			<label for="email">Email Address:</label></br>
+      		<input class="input" type="text" id="emailCheck" name="emailCheck" value=''>	
 		</td>
 		</tr>
 		<tr>
 			<td>
 				<label for="password">Password:</label></br>
-      			<input class="input" type="text" id="passwordCheck" value=''>
+      			<input class="input" type="password" id="passwordCheck" name="passwordCheck" value=''>
 			</td>
 		</tr>
 		<tr>
 	    <td>
-	      <input type="button" id="login" onclick='login()' value='login'>
+	      <input type="submit" id="login" value='login'>
 	    </td>
+	    </form>
 	    <td>  
 	      	<form action="project1.php">
     			<input type="submit" value="Go Back" />
@@ -38,12 +80,5 @@
 	    </td>
 		</tr>
 	</table>
-	<?php
-		foreach ($db->query ('SELECT firstname, password FROM racers WHERE rid =' . $_SESSION['rider']) as $row)
-		{
-			echo '<div id=\'first\' value=\'' . $row['firstname'] . '\'></div><div id=\'pass\' value=\''. $row['password'] . '\'hidden></div>';
-		}
-	?>
-	<div id='test'></div>
 </body>
 </html>

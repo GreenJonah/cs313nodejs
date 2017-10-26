@@ -7,6 +7,16 @@ $email = $_POST['email'];
 $terrain = $_POST['terrain'];
 $bike = $_POST['bike'];
 
+if (!isset($firstname)   || $firstname == ""
+	|| !isset($lastname) || $lastname  == ""
+	|| !isset($password) || $password  == ""
+	|| !isset($email)    || $email     == ""
+    || !isset($terrain)  || $terrain   == ""
+    || !isset($bike)     || $bike      == "")
+{
+	header("Location: project1.php");
+	die(); 
+}
 /*
 echo $firstname . "<br/>";
 echo $lastname . "<br/>";
@@ -15,6 +25,9 @@ echo $email. "<br/>";
 echo $bike. "<br/>";
 echo $terrain. "<br/>";
 */
+
+// Hash the password
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 require("dbConnect.php");
 $db = get_db();
@@ -27,7 +40,7 @@ try
 
 	$statement->bindValue(":firstname", $firstname);
 	$statement->bindValue(":lastname", $lastname);
-	$statement->bindValue(":password", $password);
+	$statement->bindValue(":password", $hashedPassword);
 	$statement->bindValue(":email", $email);
 	$statement->bindValue(":terrain_id", $terrain);
 	$statement->bindValue(":bikes_id", $bike);

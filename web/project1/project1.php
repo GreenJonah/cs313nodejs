@@ -76,13 +76,13 @@
 <?php
 try
 {
-  foreach ($db->query('SELECT t1.rid, t1.firstname, t1.lastname, t1.terrain_id, t1.bikes_id, t2.id, t2.terrain_type, t3.id, t3.bike_type
+  foreach ($db->query('SELECT t1.id, t1.firstname, t1.lastname, t1.terrain_id, t1.bikes_id, t2.id, t2.terrain_type, t3.id, t3.bike_type
    FROM racers t1 INNER JOIN terrain t2 ON t1.terrain_id = t2.id
-   INNER JOIN bikes t3 ON t1.bikes_id = t3.id ORDER BY t1.rid ASC')as $row)
+   INNER JOIN bikes t3 ON t1.bikes_id = t3.id ORDER BY t1.id ASC')as $row)
   {
     echo '<tr class="easyRead"><form action=\'login.php\' method=\'POST\'><td>' . $row['firstname'] . '</td><td>' . $row['lastname'] . 
          '</td><td>' . $row['terrain_type']. '</td><td>' . $row['bike_type']. 
-         '</td><td><button type=\'submit\' name=\'edit\' value=\'' . $row['rid'] . '\'>Edit</button></form></tr>';            
+         '</td><td><button type=\'submit\' name=\'edit\'>Edit</button></form></tr>';            
   }
 }
 catch (PDOExecption $ex)

@@ -22,8 +22,8 @@ CREATE TABLE public.racers(
 	id SERIAL NOT NULL PRIMARY KEY,
 	firstName VARCHAR(50) NOT NULL,
 	lastName  VARCHAR(50) NOT NULL,
-	password  VARCHAR(50) NOT NULL,
-	email     VARCHAR(50) NOT NULL,
+	password  VARCHAR(255) NOT NULL,
+	email     VARCHAR(80) UNIQUE NOT NULL,
 	terrain_id  INT NOT NULL REFERENCES public.terrain(id),
 	bikes_id  INT NOT NULL REFERENCES public.bikes(id)
 );
