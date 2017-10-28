@@ -16,13 +16,6 @@ function get_db() {
 		$dbPort = $dbopts["port"];
 		$dbUser = $dbopts["user"];
 		$dbPassword = $dbopts["pass"];
-
-		echo $dbName . "\n"; 
-		echo$dbHost . "\n"; 
-		echo$dbPort. "\n"; 
-		echo$dbUser . "\n"; 
-		echo$dbPassword . "\n"; 
-		echo$dbName. "\n"; 
 	
 		$db = new PDO("pgsql:host=$dbHost;port=$dbPort;dbname=$dbName", $dbUser, $dbPassword);
 	
