@@ -51,7 +51,7 @@
 	<?php
   	if ($badLogin)
   	{
-    	 echo "<p class=\"notCorrect\">Incorrect username or password!</p><br/><br/>\n";
+    	 echo "<p class=\"notCorrect\">Incorrect email address or password!</p><br/><br/>\n";
   	}
   	?>
 	<form action="login.php" method="POST">

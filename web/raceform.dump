@@ -72,11 +72,11 @@ ALTER SEQUENCE bikes_id_seq OWNED BY bikes.id;
 --
 
 CREATE TABLE racers (
-    rid integer NOT NULL,
+    id integer NOT NULL,
     firstname character varying(50) NOT NULL,
     lastname character varying(50) NOT NULL,
-    password character varying(50) NOT NULL,
-    email character varying(50) NOT NULL,
+    password character varying(255) NOT NULL,
+    email character varying(80) NOT NULL,
     terrain_id integer NOT NULL,
     bikes_id integer NOT NULL
 );
@@ -102,7 +102,7 @@ ALTER TABLE racers_id_seq OWNER TO postgres;
 -- Name: racers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE racers_id_seq OWNED BY racers.rid;
+ALTER SEQUENCE racers_id_seq OWNED BY racers.id;
 
 
 --
@@ -146,10 +146,10 @@ ALTER TABLE ONLY bikes ALTER COLUMN id SET DEFAULT nextval('bikes_id_seq'::regcl
 
 
 --
--- Name: racers rid; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: racers id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY racers ALTER COLUMN rid SET DEFAULT nextval('racers_id_seq'::regclass);
+ALTER TABLE ONLY racers ALTER COLUMN id SET DEFAULT nextval('racers_id_seq'::regclass);
 
 
 --
@@ -183,10 +183,12 @@ SELECT pg_catalog.setval('bikes_id_seq', 5, true);
 -- Data for Name: racers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY racers (rid, firstname, lastname, password, email, terrain_id, bikes_id) FROM stdin;
-1	Graham	Jarvis	a	something@gmail.com	1	3
-2	Colton	Haaker	b	sfasf@gmail.com	3	3
-3	John	Doe	c	generic@hotmail.com	1	1
+COPY racers (id, firstname, lastname, password, email, terrain_id, bikes_id) FROM stdin;
+1	Graham	Jarvis	$2y$10$RfKHbRh2QnuScB3PQRf/k.A7YTXSdJYngH6zvrEY3kuLxR3ZtxFeK	somestuff@gmail.com	1	3
+2	Colton	Haaker	$2y$10$2eHbTqg6bA1JfrbWlnBIj.blPHHeqH71Smuv2SpefWYLfyArOkXha	sfasf@gmail.com	3	3
+3	Cody	Webb	$2y$10$wMHW3x2rnXkYk.D6S.h88eMmE/IfsGZQNhk3tdlFrEC4fV.lq3uZe	things@gmail.com	2	2
+4	Mike	Brown	$2y$10$LLW9ChoP201.mQNXgz6Pku0AbM3LNdyeFP/Vl57H.dlXreV6hAD6u	email@email.com	3	5
+5	John	Doe	$2y$10$dk07SGhWmTqXwRQxD2S0i.z/gvCNdvfwc15b1A2D38JAQS1VSaqgy	generic@hotmail.com	1	2
 \.
 
 
@@ -194,7 +196,7 @@ COPY racers (rid, firstname, lastname, password, email, terrain_id, bikes_id) FR
 -- Name: racers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('racers_id_seq', 3, true);
+SELECT pg_catalog.setval('racers_id_seq', 5, true);
 
 
 --
@@ -224,11 +226,19 @@ ALTER TABLE ONLY bikes
 
 
 --
+-- Name: racers racers_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY racers
+    ADD CONSTRAINT racers_email_key UNIQUE (email);
+
+
+--
 -- Name: racers racers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY racers
-    ADD CONSTRAINT racers_pkey PRIMARY KEY (rid);
+    ADD CONSTRAINT racers_pkey PRIMARY KEY (id);
 
 
 --
