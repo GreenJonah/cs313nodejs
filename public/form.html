@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Postal Services</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets\mail.css">
+</head>
+<body>
+	<p class=title>Postal Services</p>
+	<form action="/price" method="get">
+		<label for="type">Package Type</label><br/>
+		<select name="type">
+			<option>Letters(Stamped)</option>
+			<option>Letters(Metered)</option>
+			<option>Large Envelopes (Flats)</option>
+			<option>Parcels</option>
+		</select><br/><br/>
+
+		<label for="weight">Item Weight(oz.)</label><br/>
+		<input type="text" name="weight"></br>
+		<br><br>
+		<input type="submit" value="Get Price">
+	</form>
+</body>
+</html>
