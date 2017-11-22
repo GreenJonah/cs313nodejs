@@ -1,0 +1,15 @@
+CREATE DATABASE teach10
+
+CREATE TABLE person (
+  id SERIAL NOT NULL PRIMARY KEY,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  birth_date DATE NOT NULL
+);
+
+CREATE TABLE relation (
+  parent_id INT NOT NULL REFERENCES person(id),
+  child_id INT NOT NULL REFERENCES person(id)
+);
+
+INSERT INTO person (first_name, last_name, birth_date) VALUES ()
