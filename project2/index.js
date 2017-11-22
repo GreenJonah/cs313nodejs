@@ -1,8 +1,14 @@
 var express = require('express');
 var app = express();
 
-var pg = require("pg"); // This is the postgres database connection module.
-const connectionString = "postgres://ta_user:ta_pass@localhost:5432/shim";
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+
+client.connect();
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -13,7 +19,14 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/getUser', function(request, response) {
-	getUser(request, response);
+	client.query('SELECT id, username, email, password FROM users;', (err, res) => {
+	  if (err) throw err;
+	  for (let row of res.rows) {
+	    console.log(JSON.stringify(row));
+	  }
+	  client.end();
+	});
+	//getUser(request, response);
 });
 
 app.get('/getBike', function(request, response) {
