@@ -1,14 +1,8 @@
 var express = require('express');
 var app = express();
 
-const { Client } = require('pg');
-
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
-
-client.connect();
+var pg = require("pg"); // This is the postgres database connection module.
+const connectionString = "postgres://ta_user:ta_pass@localhost:5432/shim";
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -19,14 +13,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/getUser', function(request, response) {
-	client.query('SELECT id, username, email, password FROM users;', (err, res) => {
-	  if (err) throw err;
-	  for (let row of res.rows) {
-	    console.log(JSON.stringify(row));
-	  }
-	  client.end();
-	});
-	//getUser(request, response);
+	getUser(request, response);
 });
 
 app.get('/getBike', function(request, response) {
@@ -44,8 +31,6 @@ app.listen(app.get('port'), function() {
 function getUser(request, response) {
 	// First get the person's id
 	var id = request.query.id;
-
-	// TODO: It would be nice to check here for a valid id before continuing on...
 
 	// use a helper function to query the DB, and provide a callback for when it's done
 	getUserFromDb(id, function(error, result) {
