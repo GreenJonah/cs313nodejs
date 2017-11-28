@@ -14,7 +14,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/getUser', function(request, response) {
-	getUser(request, response);
+	console.log('Node hello');
+	//getUser(request, response);
 });
 
 app.get('/getBike', function(request, response) {
@@ -28,7 +29,7 @@ app.get('/getShim', function(request, response) {
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
+/*
 function getUser(request, response) {
 	// First get the person's id
 	var id = request.query.id;
@@ -75,6 +76,7 @@ function getShim(request, response) {
 }
 
 function getUserFromDb(id, callback) {
+
 	console.log("Getting person from DB with id: " + id);
 
 	var client = new pg.Client(connectionString);
@@ -183,3 +185,4 @@ function getShimFromDb(id, callback) {
 	});
 
 } // end of getShimFromDb
+*/
