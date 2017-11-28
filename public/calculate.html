@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shim Calculator</title>
+    <link rel="stylesheet" href="stylesheets/main.css">
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script src="calculate.js"></script>
+  </head>
+  <body>
+      <p class="title">Shim Calculator</p>
+				<p class="subTitle">Login (optional)</p>
+				<input id="email" class="input" placeholder="Email">
+				<br/><br/>
+			  <input id="password" class="input" placeholder="Password">
+				<br/><br/>
+				<button class='btn' onclick="signIn()">Sign In</button><br/><br/>
+				<form action="signUp.html">
+				<input class='btn' type="submit" value="Create an account" />
+			</form>
+
+      <p class="subTitle">Exhaust</p>
+			<input id="exTolerance" class="input" placeholder="Specified Tolerance">
+
+			<table class="sections">
+				<tr>
+					<th>
+							<p class="subTitle">Left</p>
+							</th>
+							<th>
+								<p class="subTitle">Right</p>
+							</th>
+						</tr>
+					<tr>
+					<td>
+						<input id="exLGap" class="input" placeholder="Current Gap">
+					</td>
+					<td>
+						<input id="exRGap" class="input" placeholder="Current Gap">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="exLThickness" class="input" placeholder="Shim Thickness">
+					</td>
+					<td>
+						<input id="exRThickness" class="input" placeholder="Shim Thickness">
+					</td>
+				</tr>
+			</table>
+		<p class="subTitle">Intake</p>
+      <input id="inTolerance" class="input" placeholder="Specified Tolerance">
+			<table class="sections">
+				<tr>
+					<th>
+							<p class="subTitle">Left</p>
+							</th>
+							<th>
+								<p class="subTitle">Right</p>
+							</th>
+						</tr>
+					<tr>
+					<td>
+						<input id="inLGap" class="input" placeholder="Current Gap">
+					</td>
+					<td>
+						<input id="inRGap" class="input" placeholder="Current Gap">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="inLThickness" class="input" placeholder="Shim Thickness">
+					</td>
+					<td>
+						<input id="inRThickness" class="input" placeholder="Shim Thickness">
+					</td>
+				</tr>
+			</table><br/><br/>
+			<button class="btn" id='btn' onclick="getValues()">Calculate New
+				Shim Thickness</button><br/><br/>
+				<div id='test'></div><br/>
+		<div id='exL'></div><br/>
+		<div id='exR'></div><br/>
+		<div id='inL'></div><br/>
+		<div id='inR'></div><br/>
+  </body>
+</html>
