@@ -62,3 +62,8 @@ td {
   margin-right: auto;
   padding: 10px;
 }
+
+.newShim {
+  background-color: #dccac0;
+  font-size: 35px;
+}

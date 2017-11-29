@@ -8,21 +8,8 @@ const client = new Client({
   ssl: true,
 });
 
-client.connect();
-
+app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
-/*
-client.query('SELECT username, email FROM users;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
-
-//app.set('port', (process.env.PORT || 5000));
-
-
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
@@ -43,6 +30,16 @@ app.get('/getShim', function(request, response) {
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
+});
+
+/*
+client.connect();
+client.query('SELECT username, email FROM users;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
 });
 
 function getUser(request, response) {

@@ -5,16 +5,7 @@ function signIn() {
  var params = {
     email: email,
     password: password
- };
-/*
- $.post("/login", params, funciton(result) {
-   if (result && result.success) {
-     $("#status").text("Successfully logged in.");
-   } else {
-     $("#status").text("Error loggin in.");
-   }
- });
- */
+}
 }
 
 function displayNew(exLNewThickness, exRNewThickness
@@ -27,7 +18,7 @@ function displayNew(exLNewThickness, exRNewThickness
 
 function calculate(gap, specified, thickness) {
   shim = ((Number(gap) - Number(specified)) + Number(thickness));
-  return shim.toFixed(2);
+  return shim.toFixed(4);
 }
 
 function getValues() {
