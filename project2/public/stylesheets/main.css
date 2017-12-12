@@ -37,6 +37,27 @@ body {
 
 }
 
+.subInput {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: 30px;
+  background-color: #dccac0;
+
+}
+
+.success {
+  font-size: 20px;
+  color: #99ff33;
+  background-color: black;
+}
+
+.invalid {
+  font-size: 20px;
+  color: red;
+  background-color: black;
+}
+
 .sections {
     margin-left: auto;
     margin-right: auto;

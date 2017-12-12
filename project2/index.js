@@ -1,26 +1,40 @@
+var path = require('path');
 var express = require('express');
 var app = express();
 
-const { Client } = require('pg');
+var pg = require("pg"); // This is the postgres database connection module.
+const connectionString = process.env.DATABASE_URL || "postgres://ta_user:ta_pass@localhost:5432/shim";
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
+var bodyParser = require('body-parser')
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.set('port', (process.env.PORT || 5000));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname + '/public')));
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/getUser', function(request, response) {
-	console.log('Node hello');
-	//getUser(request, response);
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
 });
 
-app.get('/getBike', function(request, response) {
+app.post('/addUser', function(request, response) {
+    addUser(request, response);
+});
+
+app.post('/login', function(request, response) {
+	getUser(request, response);
+});
+
+app.post('/addBike', function(request, response) {
+  addBike(request, response);
+});
+
+app.get("/getBike", function(request, response) {
 	getBike(request, response);
 });
 
@@ -28,34 +42,116 @@ app.get('/getShim', function(request, response) {
 	getShim(request, response);
 });
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+function addUser(request, response) {
+    var username = request.body.userName;
+    var email = request.body.email;
+    var pass = request.body.password;
 
-/*
-client.connect();
-client.query('SELECT username, email FROM users;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
+    addUserToDb(username, email, pass, function(error, result) {
+      if (error || result == null) {
+        response.status(200).json({success: false});
+      } else {
+        response.status(200).json({success: true});
+      }
+    });
+}
+
+function addUserToDb(username, email, pass, callback) {
+  console.log("Adding username email and pass from DB: " + username + ' ' + email + ' ' + pass);
+
+  var client = new pg.Client(connectionString);
+  client.connect(function(err) {
+    if (err) {
+      console.log("Error connecting to DB: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+    var sql = "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)";
+
+    var params = [username, email, pass];
+    var query = client.query(sql, params, function(err, result) {
+      // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+        console.log("Error in query: ")
+        console.log(err);
+        callback(err, null);
+      }
+
+
+      // call whatever function the person that called us wanted, giving it
+      // the results that we have been compiling
+      callback(null, result.rows);
+    });
+  });
+} // End of addUser
+
+function addBike(request, response) {
+    var userId = request.body.id;
+    var  bikeName = request.body.bikeName;
+
+    addBikeToDb(userId, bikeName, function(error, result) {
+      if (error || result == null) {
+        response.status(200).json({success: false});
+      } else {
+        response.status(200).json({success: true});
+      }
+    });
+}
+
+function addBikeToDb(userId, bikeName, callback) {
+  console.log("Adding user_id and newBike to DB: " + userId + ' ' + bikeName);
+
+  var client = new pg.Client(connectionString);
+  client.connect(function(err) {
+    if (err) {
+      console.log("Error connecting to DB: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+  var sql = "INSERT INTO bike (name, users_id) VALUES ($1, $2)";
+
+    var params = [bikeName, userId];
+    var query = client.query(sql, params, function(err, result) {
+      // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+        console.log("Error in query: ")
+        console.log(err);
+        callback(err, null);
+      }
+
+
+      // call whatever function the person that called us wanted, giving it
+      // the results that we have been compiling
+      callback(null, result.rows);
+    });
+  });
+} // End of addUser
+
 
 function getUser(request, response) {
 	// First get the person's id
-	var id = request.query.id;
+	var email = request.body.email;
+  var pass = request.body.password;
+
 
 	// use a helper function to query the DB, and provide a callback for when it's done
-	getUserFromDb(id, function(error, result) {
+	getUserFromDb(email, pass, function(error, result) {
 		// This is the callback function that will be called when the DB is done.
 		// The job here is just to send it back.
-
 		// Make sure we got a row with the person, then prepare JSON to send back
 		if (error || result == null || result.length != 1) {
-			response.status(500).json({success: false, data: error});
+			response.status(200).json({success: false, data: error});
 		} else {
-			var person = result[0];
 			response.status(200).json(result[0]);
 		}
 	});
@@ -65,11 +161,11 @@ function getBike(request, response) {
 	var id = request.query.id;
 	getBikeFromDb(id, function(error, result) {
 		// Make sure we got a row with the person, then prepare JSON to send back
-		if (error || result == null || result.length != 1) {
+		if (error || result == null) {
 			response.status(500).json({success: false, data: error});
 		} else {
-			var person = result[0];
-			response.status(200).json(result[0]);
+			response.status(200).json(result.rows);
+      response.end();
 		}
 	});
 }
@@ -87,12 +183,11 @@ function getShim(request, response) {
 	});
 }
 
-function getUserFromDb(id, callback) {
+function getUserFromDb(email, pass, callback) {
 
-	console.log("Getting person from DB with id: " + id);
+	console.log("Getting person's email and pass from DB:" + email + ' ' + pass);
 
-	var client = new pg.Client(connectionString);
-
+  var client = new pg.Client(connectionString);
 	client.connect(function(err) {
 		if (err) {
 			console.log("Error connecting to DB: ")
@@ -100,9 +195,8 @@ function getUserFromDb(id, callback) {
 			callback(err, null);
 		}
 
-		var sql = "SELECT id, username, email, password FROM users WHERE id = $1::int";
-		var params = [id];
-
+    var sql = "SELECT id, username, email, password FROM users WHERE email = $1 AND password = $2";
+		var params = [email, pass];
 		var query = client.query(sql, params, function(err, result) {
 			// we are now done getting the data from the DB, disconnect the client
 			client.end(function(err) {
@@ -115,7 +209,6 @@ function getUserFromDb(id, callback) {
 				callback(err, null);
 			}
 
-			console.log("Found result: " + JSON.stringify(result.rows));
 
 			// call whatever function the person that called us wanted, giving it
 			// the results that we have been compiling
@@ -126,7 +219,7 @@ function getUserFromDb(id, callback) {
 } // end of getUserFromDb
 
 function getBikeFromDb(id, callback) {
-	console.log("Getting person from DB with id: " + id);
+	console.log("Getting bikes where user id = " + id);
 
 	var client = new pg.Client(connectionString);
 
@@ -137,8 +230,9 @@ function getBikeFromDb(id, callback) {
 			callback(err, null);
 		}
 
-		var sql = "SELECT id, name, intake_tolorance, exhaust_tolorance FROM bike WHERE id = $1::int";
+		var sql = "SELECT name FROM bike WHERE users_id = $1";
 		var params = [id];
+      console.log(sql);
 
 		var query = client.query(sql, params, function(err, result) {
 			// we are now done getting the data from the DB, disconnect the client
@@ -197,4 +291,3 @@ function getShimFromDb(id, callback) {
 	});
 
 } // end of getShimFromDb
-*/

@@ -41,8 +41,6 @@ SET default_with_oids = false;
 CREATE TABLE bike (
     id integer NOT NULL,
     name character varying(50),
-    intake_tolorance real NOT NULL,
-    exhaust_tolorance real NOT NULL,
     users_id integer NOT NULL
 );
 
@@ -68,43 +66,6 @@ ALTER TABLE bike_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE bike_id_seq OWNED BY bike.id;
-
-
---
--- Name: shim; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE shim (
-    id integer NOT NULL,
-    inr real,
-    inl real,
-    exr real,
-    exl real,
-    bike_id integer NOT NULL
-);
-
-
-ALTER TABLE shim OWNER TO postgres;
-
---
--- Name: shim_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE shim_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE shim_id_seq OWNER TO postgres;
-
---
--- Name: shim_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE shim_id_seq OWNED BY shim.id;
 
 
 --
@@ -150,13 +111,6 @@ ALTER TABLE ONLY bike ALTER COLUMN id SET DEFAULT nextval('bike_id_seq'::regclas
 
 
 --
--- Name: shim id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY shim ALTER COLUMN id SET DEFAULT nextval('shim_id_seq'::regclass);
-
-
---
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -167,10 +121,10 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 -- Data for Name: bike; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY bike (id, name, intake_tolorance, exhaust_tolorance, users_id) FROM stdin;
-1	honda	0.00600000005	0.0109999999	1
-2	yamaha	0.00499999989	0.00999999978	1
-3	honda	0.00600000005	0.0109999999	2
+COPY bike (id, name, users_id) FROM stdin;
+1	Honda	1
+2	Yamaha 450	2
+3	Honda 450	2
 \.
 
 
@@ -182,30 +136,12 @@ SELECT pg_catalog.setval('bike_id_seq', 3, true);
 
 
 --
--- Data for Name: shim; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY shim (id, inr, inl, exr, exl, bike_id) FROM stdin;
-1	0.0599999987	0.0399999991	0.0120000001	0.0140000004	1
-2	0.0399999991	0.0599999987	0.0149999997	0.0140000004	2
-3	0.0599999987	0.0399999991	0.0149999997	0.0120000001	3
-\.
-
-
---
--- Name: shim_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('shim_id_seq', 3, true);
-
-
---
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY users (id, username, email, password) FROM stdin;
-1	John	generic@gmail.com	a
-2	Jerry	something@gmail.com	b
+1	John	generic@hotmail.com	a
+2	Jerry	somestuff@gmail.com	b
 \.
 
 
@@ -222,14 +158,6 @@ SELECT pg_catalog.setval('users_id_seq', 2, true);
 
 ALTER TABLE ONLY bike
     ADD CONSTRAINT bike_pkey PRIMARY KEY (id);
-
-
---
--- Name: shim shim_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY shim
-    ADD CONSTRAINT shim_pkey PRIMARY KEY (id);
 
 
 --
@@ -265,14 +193,6 @@ ALTER TABLE ONLY bike
 
 
 --
--- Name: shim shim_bike_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY shim
-    ADD CONSTRAINT shim_bike_id_fkey FOREIGN KEY (bike_id) REFERENCES bike(id);
-
-
---
 -- Name: bike; Type: ACL; Schema: public; Owner: postgres
 --
 
@@ -280,10 +200,10 @@ GRANT SELECT,INSERT,UPDATE ON TABLE bike TO ta_user;
 
 
 --
--- Name: shim; Type: ACL; Schema: public; Owner: postgres
+-- Name: bike_id_seq; Type: ACL; Schema: public; Owner: postgres
 --
 
-GRANT SELECT,INSERT,UPDATE ON TABLE shim TO ta_user;
+GRANT SELECT,USAGE ON SEQUENCE bike_id_seq TO ta_user;
 
 
 --
@@ -291,6 +211,13 @@ GRANT SELECT,INSERT,UPDATE ON TABLE shim TO ta_user;
 --
 
 GRANT SELECT,INSERT,UPDATE ON TABLE users TO ta_user;
+
+
+--
+-- Name: users_id_seq; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,USAGE ON SEQUENCE users_id_seq TO ta_user;
 
 
 --
