@@ -71,7 +71,7 @@ function addUserToDb(username, email, pass, callback) {
 
     var params = [username, email, pass];
     var query = client.query(sql, params, function(err, result) {
-      // we are now done getting the data from the DB, disconnect the client
+
       client.end(function(err) {
         if (err) throw err;
       });
@@ -82,9 +82,6 @@ function addUserToDb(username, email, pass, callback) {
         callback(err, null);
       }
 
-
-      // call whatever function the person that called us wanted, giving it
-      // the results that we have been compiling
       callback(null, result.rows);
     });
   });
@@ -96,7 +93,7 @@ function addBike(request, response) {
 
     addBikeToDb(userId, bikeName, function(error, result) {
       if (error || result == null) {
-        response.status(200).json({success: false});
+        response.status(500).json({success: false});
       } else {
         response.status(200).json({success: true});
       }
@@ -118,7 +115,7 @@ function addBikeToDb(userId, bikeName, callback) {
 
     var params = [bikeName, userId];
     var query = client.query(sql, params, function(err, result) {
-      // we are now done getting the data from the DB, disconnect the client
+
       client.end(function(err) {
         if (err) throw err;
       });
@@ -129,9 +126,6 @@ function addBikeToDb(userId, bikeName, callback) {
         callback(err, null);
       }
 
-
-      // call whatever function the person that called us wanted, giving it
-      // the results that we have been compiling
       callback(null, result.rows);
     });
   });
@@ -143,12 +137,7 @@ function getUser(request, response) {
 	var email = request.body.email;
   var pass = request.body.password;
 
-
-	// use a helper function to query the DB, and provide a callback for when it's done
 	getUserFromDb(email, pass, function(error, result) {
-		// This is the callback function that will be called when the DB is done.
-		// The job here is just to send it back.
-		// Make sure we got a row with the person, then prepare JSON to send back
 		if (error || result == null || result.length != 1) {
 			response.status(200).json({success: false, data: error});
 		} else {
@@ -160,12 +149,10 @@ function getUser(request, response) {
 function getBike(request, response) {
 	var id = request.query.id;
 	getBikeFromDb(id, function(error, result) {
-		// Make sure we got a row with the person, then prepare JSON to send back
 		if (error || result == null) {
 			response.status(500).json({success: false, data: error});
 		} else {
-			response.status(200).json(result.rows);
-      response.end();
+			response.status(200).json(result);
 		}
 	});
 }
@@ -173,7 +160,6 @@ function getBike(request, response) {
 function getShim(request, response) {
 	var id = request.query.id;
 	getShimFromDb(id, function(error, result) {
-		// Make sure we got a row with the person, then prepare JSON to send back
 		if (error || result == null || result.length != 1) {
 			response.status(500).json({success: false, data: error});
 		} else {
@@ -198,7 +184,7 @@ function getUserFromDb(email, pass, callback) {
     var sql = "SELECT id, username, email, password FROM users WHERE email = $1 AND password = $2";
 		var params = [email, pass];
 		var query = client.query(sql, params, function(err, result) {
-			// we are now done getting the data from the DB, disconnect the client
+
 			client.end(function(err) {
 				if (err) throw err;
 			});
@@ -209,9 +195,6 @@ function getUserFromDb(email, pass, callback) {
 				callback(err, null);
 			}
 
-
-			// call whatever function the person that called us wanted, giving it
-			// the results that we have been compiling
 			callback(null, result.rows);
 		});
 	});
@@ -230,12 +213,12 @@ function getBikeFromDb(id, callback) {
 			callback(err, null);
 		}
 
-		var sql = "SELECT name FROM bike WHERE users_id = $1";
+		var sql = "SELECT id, name FROM bike WHERE users_id = $1";
 		var params = [id];
       console.log(sql);
 
 		var query = client.query(sql, params, function(err, result) {
-			// we are now done getting the data from the DB, disconnect the client
+
 			client.end(function(err) {
 				if (err) throw err;
 			});
@@ -248,8 +231,6 @@ function getBikeFromDb(id, callback) {
 
 			console.log("Found result: " + JSON.stringify(result.rows));
 
-			// call whatever function the person that called us wanted, giving it
-			// the results that we have been compiling
 			callback(null, result.rows);
 		});
 	});
@@ -271,7 +252,6 @@ function getShimFromDb(id, callback) {
 		var params = [id];
 
 		var query = client.query(sql, params, function(err, result) {
-			// we are now done getting the data from the DB, disconnect the client
 			client.end(function(err) {
 				if (err) throw err;
 			});
@@ -284,8 +264,6 @@ function getShimFromDb(id, callback) {
 
 			console.log("Found result: " + JSON.stringify(result.rows));
 
-			// call whatever function the person that called us wanted, giving it
-			// the results that we have been compiling
 			callback(null, result.rows);
 		});
 	});

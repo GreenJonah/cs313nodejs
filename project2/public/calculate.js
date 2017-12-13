@@ -64,7 +64,7 @@ function addBike(id){
     bikeName: bikeName
   }
 
-  $.post("/addBike", params, function(results) {
+  $.post("/addBike", params, function(result) {
     if (result.success != false) {
       getBikes(id);
     } else {
@@ -77,22 +77,24 @@ function getBikes(id) {
   var params = {
      id: id
  }
-  var results = ''
-  $.get("/getBike", params, function(result) {
-    if (result.success != false) {
-      results = result;
-    } else {
-      return;
+ var results;
+
+$.get("/getBike", params, function(result) {
+    console.log(JSON.stringify(result));
+    console.log(result[1].name);
+    if(result.seccess != false)
+    {
+      return result;
     }
+
   });
-  console.log("hello" + results);
   return results;
 }
 
 function loadBikes(id) {
   removeChildren('bikeSelect');
   var bikes = getBikes(id);
-  //console.log(bikes);
+  console.log(bikes);
   var selectBike = `<p class="subTitle">Select a Bike</p>
                     <select class=input>
                     </select><br/><br/>
